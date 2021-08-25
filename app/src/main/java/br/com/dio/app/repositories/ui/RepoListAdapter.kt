@@ -1,7 +1,11 @@
 package br.com.dio.app.repositories.ui
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -31,7 +35,10 @@ class RepoListAdapter : ListAdapter<Repo, RepoListAdapter.ViewHolder>(DiffCallba
             binding.tvRepoLanguage.text = item.language
             binding.chipStar.text = item.stargazersCount.toString()
             binding.tvRepoOwnerName.text = item.owner.login
-
+            binding.root.setOnLongClickListener {it ->
+                openLink(it.context,item.htmlURL)
+                true
+            }
             Glide.with(binding.root.context)
                 .load(item.owner.avatarURL).into(binding.ivOwner)
         }
@@ -41,4 +48,10 @@ class RepoListAdapter : ListAdapter<Repo, RepoListAdapter.ViewHolder>(DiffCallba
 class DiffCallback : DiffUtil.ItemCallback<Repo>() {
     override fun areItemsTheSame(oldItem: Repo, newItem: Repo) = oldItem == newItem
     override fun areContentsTheSame(oldItem: Repo, newItem: Repo) = oldItem.id == newItem.id
+}
+
+fun openLink(context: Context, link: String){
+    val uri: Uri = Uri.parse(link)
+    val intent = Intent(Intent.ACTION_VIEW, uri)
+    startActivity(context, intent,null)
 }

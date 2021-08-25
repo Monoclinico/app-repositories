@@ -1,10 +1,13 @@
 package br.com.dio.app.repositories.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import br.com.dio.app.repositories.R
 import br.com.dio.app.repositories.core.createDialog
 import br.com.dio.app.repositories.core.createProgressDialog
@@ -66,5 +69,4 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     companion object {
         private const val TAG = "TAG"
     }
-
 }
